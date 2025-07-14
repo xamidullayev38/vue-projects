@@ -1,0 +1,21 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+body{
+    width: 100%;
+    min-height: 100vh;
+    background: #C04848;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #480048, #C04848);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #480048, #C04848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.selectors{
+    width: 700px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0px auto ;
+}
+.result-text{
+    font-family: "Nabla", system-ui;
+    font-size: 24px;
+}
