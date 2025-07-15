@@ -3,20 +3,42 @@
     import Input from './components/Input.vue';
     import Selector from './components/Selector.vue';
     import CryptoConvert from 'crypto-convert';
-
+    import Favourite from './components/Favourite.vue';
     const convert = new CryptoConvert();
     export default{
-        components: { Input, Selector },
+        components: { Input, Selector, Favourite },
         data () {
             return{
                 amount: 0,
                 cryptoFirst: '',
                 cryptoSecond: '',
                 error: '',
-                result: 0
+                result: 0,
+                favs: []
             }
         },
         methods: {
+            getFavs() {
+                const alreadyExists = this.favs.some(fav => fav.from === this.cryptoFirst && fav.to === this.cryptoSecond );
+                if(!this.cryptoFirst || !this.cryptoSecond) {
+                    alert('Choose conversion')
+                    return
+                }
+                if (alreadyExists) {
+                    alert('this conversion is already existed!')
+                    return
+                }
+                if (this.cryptoFirst == this.cryptoSecond) {
+                    alert('The currencies are same') 
+                    return
+                }
+                this.favs.push(
+                    {
+                        from: this.cryptoFirst,
+                        to: this.cryptoSecond
+                    }
+                )
+            },
             changeAmount(val) {
                 this.amount = val
             },
@@ -28,13 +50,13 @@
             },
             async convert() {
                 if(this.amount <= 0){
-                    this.error = 'Enter number upper than zero'
+                    alert('Enter number upper than zero')
                     return 
                 }else if (this.cryptoFirst == '' || this.cryptoSecond == ''){
-                    this.error = 'Chose currency'
+                    alert('Chose currency')
                     return
                 } else if (this.cryptoFirst == this.cryptoSecond){
-                    this.error = 'Enter different currency'
+                    alert('Enter different currency')
                     return
                 }
                 this.error = ''
@@ -62,9 +84,9 @@
 <template>
     <div class="wrapper">
         <h1>CRYPTO</h1>
-        <Input :changeAmount="changeAmount" :convert="convert"/>
-        <p v-if="error != ''">{{ error }}</p>
-        <p v-else-if="result !== 0" class="result-text">{{ result }} </p>
+        <Input :getFavs="getFavs" :changeAmount="changeAmount" :convert="convert"/>
+        <p v-if="result !== 0" class="result-text">{{ result }} </p>
+        <Favourite v-if="favs.length > 0" :favs="favs" />
         <div class="selectors">
             <Selector :setCrypto="setCryptoFirst"/>
             <Selector :setCrypto="setCryptoSecond"/>

@@ -9,6 +9,10 @@ export default {
         convert: {
             type: Function,
             required: true
+        },
+        getFavs: {
+            type: Function,
+            required: true
         }
     } 
 }
@@ -16,8 +20,11 @@ export default {
 
 <template>
     <input @input="changeAmount($event.target.value)" min="0" type="number" placeholder="Enter a number">
-    <button @click="convert()">Convert</button>
+    <div class="btnds">
+        <button @click="convert()">Convert</button>
+        <button @click="getFavs()" class="fav-button"> To Favourite</button>
 
+    </div>
 </template>
 
 <style scoped>
@@ -46,5 +53,10 @@ button{
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+    .btnds{
+        display: flex;
+        align-items: center;
+        gap: 25px;
     }
 </style>
