@@ -18,6 +18,10 @@
             }
         },
         methods: {
+            getFromFavs(index){
+                this.cryptoFirst = this.favs[index].from
+                this.cryptoSecond = this.favs[index].to
+            },
             getFavs() {
                 const alreadyExists = this.favs.some(fav => fav.from === this.cryptoFirst && fav.to === this.cryptoSecond );
                 if(!this.cryptoFirst || !this.cryptoSecond) {
@@ -86,10 +90,10 @@
         <h1>CRYPTO</h1>
         <Input :getFavs="getFavs" :changeAmount="changeAmount" :convert="convert"/>
         <p v-if="result !== 0" class="result-text">{{ result }} </p>
-        <Favourite v-if="favs.length > 0" :favs="favs" />
+        <Favourite v-if="favs.length > 0" :getFromFavs="getFromFavs" :favs="favs" />
         <div class="selectors">
-            <Selector :setCrypto="setCryptoFirst"/>
-            <Selector :setCrypto="setCryptoSecond"/>
+            <Selector :setCrypto="setCryptoFirst" :cryptoNow="cryptoFirst"/>
+            <Selector :setCrypto="setCryptoSecond" :cryptoNow="cryptoSecond"/>
         </div>
     </div>    
 </template>

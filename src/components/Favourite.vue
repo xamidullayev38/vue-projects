@@ -1,5 +1,5 @@
 <template>
-  <div  class="favs" v-for="(item, index) in favs" :key="index" >
+  <div @click="getFromFavs(index)" class="favs" v-for="(item, index) in favs" :key="index" >
     <span>{{ item.from }}</span>
     <span>{{ item.to }}</span>
   </div>
@@ -11,7 +11,10 @@ export default {
         favs: {
             type: Array,
             required: true
-        }
+        },getFromFavs: {
+            type: Function,
+            required: true
+        },
     }
 }
 </script>
